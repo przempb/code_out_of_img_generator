@@ -24,7 +24,7 @@ if k == ord("s"):
 text = pytesseract.image_to_string(img)
 
 #_______FUNKCJE PRZETWARZAJĄCE TEKST
-#podstawowe czyszczenie kodu. Zwraca listę elementów
+#podstawowe czyszczenie kodu. Zwraca listę elementów. Każdy z nich to linijka kodu. 
 def text_cleaner(text):
     list = text.split("\n")
     for elem in list:
