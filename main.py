@@ -6,9 +6,7 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\\Program Files\\Tesseract-OCR\tesse
 
 
 #_______LISTA PRZYKLADOWYCH GRAFIK
-image_1st = r"C:\Users\przem\Desktop\209647909_5595426930528168_3011881158482159022_n.jpg"
-image = r"C:\Users\przem\Desktop\Zrzut ekranu 2021-07-02 181147.png"
-clean_img = r"C:\Users\przem\Desktop\Zrzut ekranu 2021-07-04 191548.png"
+clean_img = r"C:\..."
 
 #_______OTWARCEI GRAFIKI DO PRZETWARZANIA W CV2
 img = cv.imread(clean_img)
