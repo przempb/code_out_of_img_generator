@@ -1,30 +1,29 @@
-import cv2 as cv
-import pytesseract
-import sys
+from importing_modules import *
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\\Program Files\\Tesseract-OCR\tesseract.exe"
+load_dotenv()
 
+pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_EXECUTABLE')
 
-#_______LISTA PRZYKLADOWYCH GRAFIK
-clean_img = r"C:\..."
+# _______LISTA PRZYKLADOWYCH GRAFIK
+clean_img = os.getenv('EXAMPLE_IMAGES_PATH')
 
-#_______OTWARCEI GRAFIKI DO PRZETWARZANIA W CV2
+# _______OTWARCEI GRAFIKI DO PRZETWARZANIA W CV2
 img = cv.imread(clean_img)
 
-
-#_______WYŚWIETLANIE WYBRANEJ GRAFIKI
+# _______WYŚWIETLANIE WYBRANEJ GRAFIKI
 if img is None:
     sys.exit("Could not read the image.")
 cv.imshow("Display window", img)
 k = cv.waitKey(0)
 if k == ord("s"):
     cv.imwrite("test_image.png", img)
-    
-#_______UTWORZENIE TEKSTU W PYTESSERACT
+
+# _______UTWORZENIE TEKSTU W PYTESSERACT
 text = pytesseract.image_to_string(img)
 
-#_______FUNKCJE PRZETWARZAJĄCE TEKST
-#podstawowe czyszczenie kodu. Zwraca listę elementów. Każdy z nich to linijka kodu. 
+
+# _______FUNKCJE PRZETWARZAJĄCE TEKST
+# podstawowe czyszczenie kodu. Zwraca listę elementów. Każdy z nich to linijka kodu.
 def text_cleaner(text):
     list = text.split("\n")
     for elem in list:
@@ -32,7 +31,8 @@ def text_cleaner(text):
             list.remove(elem)
     return list
 
-#zwraca listę z listami elementów w tekście. Każdy element jest linijką kodu. Ważne do tworzenia stringów
+
+# zwraca listę z listami elementów w tekście. Każdy element jest linijką kodu. Ważne do tworzenia stringów
 def elements_iterator(text):
     elements_lists = []
     for elem in text:
@@ -41,7 +41,8 @@ def elements_iterator(text):
         elements_lists.append(elements_list)
     return elements_lists
 
-#tworzy string z listy elemnentów i zapisuje plik w formacie py
+
+# tworzy string z listy elemnentów i zapisuje plik w formacie py
 def file_writer(ready_text):
     string_of_list = ""
     for item in ready_text:
@@ -52,7 +53,7 @@ def file_writer(ready_text):
         file.write(string_of_list)
 
 
-#_______WYWOLYWANIE FUNKCJI
+# _______WYWOLYWANIE FUNKCJI
 cleaned_text = text_cleaner(text)
 elements = elements_iterator(cleaned_text)
 created_file = file_writer(elements)
